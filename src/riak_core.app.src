@@ -18,7 +18,8 @@
                   basho_stats,
                   eleveldb,
                   pbkdf2,
-                  poolboy
+                  poolboy,
+                  folsom
                  ]},
   {mod, {riak_core_app, []}},
   {env, [
