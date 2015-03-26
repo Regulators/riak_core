@@ -886,6 +886,11 @@ handle_sync_event(core_status, _From, StateName, State=#state{index=Index,
         end,
     {reply, {Mode, Status}, StateName, start_inactivity_timer(State)}.
 
+handle_info(tick, StateName,
+            State=#state{mod=Mod,modstate={deleted, _},index=Index}) ->
+    lager:info("~p ~p ignored tick - vnode unregistering\n",
+               [Index, Mod]),
+    {next_state, StateName, State};
 handle_info(tick, StateName, State = #state{mod=Mod, modstate=ModState}) ->
     %% Assume that if an option tick is set, then handle_tick callback has been
     %% also defined, otherwise crash.
